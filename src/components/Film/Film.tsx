@@ -4,6 +4,7 @@ import "./Film.css"
 
 interface IFilmProps{
     name: string
+    category: string
     img: string
 }
 

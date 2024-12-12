@@ -1,7 +1,8 @@
 .container {
     margin: auto;
+    margin-top: 0px;
     width: 65%;
-    height: 800px;
+    min-height: 100vh;
     padding: 20px;
 }
 
@@ -12,5 +13,8 @@ h1{
 .AnnouncementsContainer{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    /* justify-content: space-between; */
+    gap: 5%;
+    width: auto;
 }

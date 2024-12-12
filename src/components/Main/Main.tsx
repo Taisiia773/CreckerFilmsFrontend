@@ -1,8 +1,8 @@
 import './Main.css'
 import { ReactNode } from "react"
-import { FilmsList } from './FilmsList'
-import { AnnouncementList } from "./AnnouncementList"
-import {AnnouncementLeft} from "./Announcements"
+import { FilmsList } from '../FilmsList/FilmsList'
+import { AnnouncementList } from "../AnnouncementList/AnnouncementList"
+import {AnnouncementLeft} from "../Announcements/Announcements"
 
 export function Main() {
     return (
