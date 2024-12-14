@@ -20,9 +20,9 @@ export function AnnouncementLeft(){
     ];
 
     return (
-        <div>
+        <div className="announcement-content-image-div">
             {/* <div className="announcement-left"> */}
-                <img src="https://i.imgur.com/2l24qP0_d.webp?maxwidth=1520&fidelity=grand" className="announcement-image1"/>
+                {/* <img src="https://i.imgur.com/2l24qP0_d.webp?maxwidth=1520&fidelity=grand" className="announcement-image1"/> */}
                 {announcements.map(announcement => (
                     <div key={announcement.id} className="announcements-left">
                         <img src={announcement.image2} alt={announcement.title} className="announcement-image2"/>
