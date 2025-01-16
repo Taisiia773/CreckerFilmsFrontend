@@ -1,5 +1,7 @@
 import {useState, useEffect} from 'react'
+
 import { Film } from "../Film/Film"
+import { TailSpin } from "react-loader-spinner"
 import "./FilmsList.css"
 
 const films = [
@@ -30,6 +32,7 @@ const films = [
 ]
 
 export function FilmsList(){
+    // const { products, loading, error } = usehooks();
     const [selectedCategory, setSelectedCategory] = useState("All")
     const [FilteredFilms, setFilteredFilms] = useState(films)
     useEffect(() => {
@@ -47,6 +50,20 @@ export function FilmsList(){
     return (
         <div className="films">
             <div className="filter">
+            {categoriesLoading ? (
+					<TailSpin
+						visible={true}
+						height="80"
+						width="80"
+						color="#4fa94d"
+						ariaLabel="tail-spin-loading"
+						radius="1"
+						wrapperStyle={{}}
+						wrapperClass=""
+					/>
+				) : categoriesError ? (
+					<h1>{categoriesError}</h1>
+				) : (
                 <select className="SelectCategories" onChange={(event) => {
                     const selectedValue = event.target.value
                     setSelectedCategory(selectedValue)
@@ -57,8 +74,46 @@ export function FilmsList(){
                     <option value="Serega Pirate">Serega Pirate</option>
                     <option value="papa wildberries">papa wildberries</option>
                 </select>
+                )}
             </div>
+                
             <section className='FilmsList-section'>
+            {loading === true ? (
+				<div className="loader">
+					<TailSpin
+						visible={true}
+						height="80"
+						width="80"
+						color="#4fa94d"
+						ariaLabel="tail-spin-loading"
+						radius="1"
+						wrapperStyle={{}}
+						wrapperClass=""
+					/>
+				</div>
+			) : error !== "" ? (
+				<div>{error}</div>
+			) : (
+				<div className="productsDiv">
+					{/* 
+                [
+                    {name: '', price: 1} ,
+                    {name: '', price: 1} ,
+                    {name: '', price: 1},
+                    {name: '', price: 1},
+                    {name: '', price: 1}
+                ] */}
+					{FilteredFilms.map((film) => {
+						// key - специальный ключ (id), который используеться при отображении массивов
+						// этот ключ позваляет определить, какой элемент был удален добавлен и т. п.
+							return <Film 
+                            img={film.img}
+                            category={film.category}
+                            name={film.name}
+                            key={film.id} />
+                })}
+				</div>
+			)}
                 {FilteredFilms.map((film) => {
                     return <Film 
                             img={film.img}
