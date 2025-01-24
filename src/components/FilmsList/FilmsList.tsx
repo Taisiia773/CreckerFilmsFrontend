@@ -1,56 +1,58 @@
 import {useState, useEffect} from 'react'
-
 import { Film } from "../Film/Film"
 import { TailSpin } from "react-loader-spinner"
+import { useFilms } from '../../hooks/useFilms'
+import { useGenres } from '../../hooks/useGenres'
 import "./FilmsList.css"
 
 const films = [
     {
         name: "Дэдпул и Росомаха",
-        category:"boss fimoz",
+        genre:"boss fimoz",
         img: "https://static.hdrezka.ac/i/2024/10/1/wcc0cad3b0584zr82h94s.jpg",
         id: 0
     },
     {
         name: "Дэдпул и Росомаха",
-        category:"monster abayudno",
+        genre:"monster abayudno",
         img: "https://static.hdrezka.ac/i/2024/10/1/wcc0cad3b0584zr82h94s.jpg",
         id: 1
     },
     {
         name: "Дэдпул и Росомаха",
-        category:"Serega Pirate",
+        genre:"Serega Pirate",
         img: "https://static.hdrezka.ac/i/2024/10/1/wcc0cad3b0584zr82h94s.jpg",
         id: 2
     },
     {
         name: "Дэдпул и Росомаха",
-        category:"papa wildberries",
+        genre:"papa wildberries",
         img: "https://static.hdrezka.ac/i/2024/10/1/wcc0cad3b0584zr82h94s.jpg",
         id: 3
     },
 ]
 
 export function FilmsList(){
-    // const { products, loading, error } = usehooks();
-    const [selectedCategory, setSelectedCategory] = useState("All")
+    const {films, loading, error } = useFilms()
+    const [selectedGenre, setSelectedGenre] = useState("All")
     const [FilteredFilms, setFilteredFilms] = useState(films)
     useEffect(() => {
-        console.log(selectedCategory)
-        if (selectedCategory === "All") {
+        console.log(selectedGenre)
+        if (selectedGenre === "All") {
             setFilteredFilms(films)
         } else {
             const filtered = films.filter((film) => {
-                return film.category === selectedCategory
+                return film.genre === selectedGenre
             })
             setFilteredFilms(filtered)
         }
-    }, [selectedCategory])
+    }, [selectedGenre, films])
+    const {genres, loading: genresLoading, error: genresError,} = useGenres();
 
     return (
         <div className="films">
             <div className="filter">
-            {categoriesLoading ? (
+            {genresLoading ? (
 					<TailSpin
 						visible={true}
 						height="80"
@@ -61,12 +63,12 @@ export function FilmsList(){
 						wrapperStyle={{}}
 						wrapperClass=""
 					/>
-				) : categoriesError ? (
-					<h1>{categoriesError}</h1>
+				) : genresError ? (
+					<h1>{genresError}</h1>
 				) : (
                 <select className="SelectCategories" onChange={(event) => {
                     const selectedValue = event.target.value
-                    setSelectedCategory(selectedValue)
+                    setSelectedGenre(selectedValue)
                 }}>
                     <option value="All">All</option>
                     <option value="boss fimoz">boss fimoz</option>
@@ -76,7 +78,7 @@ export function FilmsList(){
                 </select>
                 )}
             </div>
-                
+
             <section className='FilmsList-section'>
             {loading === true ? (
 				<div className="loader">
@@ -95,33 +97,19 @@ export function FilmsList(){
 				<div>{error}</div>
 			) : (
 				<div className="productsDiv">
-					{/* 
-                [
-                    {name: '', price: 1} ,
-                    {name: '', price: 1} ,
-                    {name: '', price: 1},
-                    {name: '', price: 1},
-                    {name: '', price: 1}
-                ] */}
 					{FilteredFilms.map((film) => {
-						// key - специальный ключ (id), который используеться при отображении массивов
-						// этот ключ позваляет определить, какой элемент был удален добавлен и т. п.
+
 							return <Film 
+                            id={film.id}
                             img={film.img}
-                            category={film.category}
+                            genre={film.genre}
                             name={film.name}
                             key={film.id} />
                 })}
 				</div>
 			)}
-                {FilteredFilms.map((film) => {
-                    return <Film 
-                            img={film.img}
-                            category={film.category}
-                            name={film.name}
-                            key={film.id} />
-                })}
             </section>
         </div>
     )
 }
+
