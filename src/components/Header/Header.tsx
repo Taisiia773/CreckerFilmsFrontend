@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import "./Header.css"
 
 export function Header(){
@@ -5,9 +6,11 @@ export function Header(){
         <div>
                 <header>
                     <div className="Header">
+                        <Link to={"/main"}>
                         <div className="ImageLogoDiv">
                             <img className="ImageLogo" src="https://i.imgur.com/M6hsHDC.png"/>
                         </div>
+                        </Link>
 
                         <div className="Search">
                             <div className="searchBar">
@@ -25,7 +28,7 @@ export function Header(){
 
                         <button className="SignIn">
                             <div className="SignInSection">
-                                <p className="SignInText">Sign in</p>
+                                <Link to={`/login`} className="SignInText">Sign in</Link>
                             </div>
                         </button>
                     </div>
